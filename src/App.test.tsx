@@ -46,7 +46,7 @@ describe('document modal', () => {
     await user.click(screen.getByRole('checkbox', { name: /Wyrażam zgodę/ }));
     await user.click(screen.getByRole('button', { name: 'Wyślij dokument' }));
 
-    expect(screen.getByRole('button', { name: /Wysyłanie/ })).toHaveAttribute('aria-disabled', 'true');
+    expect(screen.getByRole('button', { name: /Wysyłanie/ })).toBeDisabled();
     expect(screen.getByRole('status')).toHaveTextContent('Wysyłanie dokumentu');
     const alert = await screen.findByRole('alert');
     expect(alert).toHaveTextContent('Serwer odrzucił dokument');

@@ -287,7 +287,7 @@ export function DocumentForm({ firstFieldRef, onClose }: DocumentFormProps) {
         <button
           className="button button-primary"
           type="submit"
-          aria-disabled={isSubmitting}
+          disabled={isSubmitting}
         >
           {isSubmitting ? (
             <><span className="spinner" aria-hidden="true" /> Wysyłanie…</>

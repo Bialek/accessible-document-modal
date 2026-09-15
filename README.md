@@ -46,7 +46,7 @@ Walidację umieściłem w czystej funkcji `validateDocumentForm`. Błędy pól s
 - Każde pole ma widoczną etykietę. Błędy są połączone z polami i ogłaszane czytnikom ekranu.
 - Stan wysyłki, błąd serwera i sukces korzystają z właściwych live regionów.
 - Test E2E uruchamia automatyczny audyt axe dla otwartego modala.
-- Przycisk wysyłki pozostaje dostępny dla fokusu podczas operacji, ale nie pozwala wysłać formularza drugi raz.
+- Przycisk wysyłki jest natywnie wyłączony podczas operacji, co blokuje ponowne kliknięcie i wysłanie klawiszem Enter.
 - Focus ring i obramowania kontrolek spełniają wymagany kontrast 3:1, a animacja respektuje `prefers-reduced-motion`.
 
 ## Walidacja

@@ -64,8 +64,7 @@ h3 { font-size: 1.25rem; }
 .button-primary:hover:not(:disabled) { background: #194a9a; }
 .button-secondary { color: #26344c; border-color: #c9d1dc; background: #fff; }
 .button-secondary:hover:not(:disabled) { background: #f3f5f8; }
-.button:disabled,
-.button[aria-disabled="true"] { cursor: not-allowed; opacity: 0.58; }
+.button:disabled { cursor: not-allowed; opacity: 0.58; }
 
 .sr-only {
   position: absolute;
