@@ -1,0 +1,6 @@
+{
+  "requestId": "req-2026-0002",
+  "status": "error",
+  "code": "VALIDATION_BACKEND",
+  "message": "Serwer odrzucił dokument. Spróbuj ponownie za chwilę."
+}

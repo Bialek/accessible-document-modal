@@ -1,0 +1,8 @@
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+tmp/
+*.log
+Zadanie_2_Modal_formularza_accessibility_first_v3.pdf
