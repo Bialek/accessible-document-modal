@@ -8,6 +8,8 @@ import {
 } from 'react';
 import {
   initialDocumentFormValues,
+  NOTE_MAX_LENGTH,
+  NOTE_TOO_LONG_MESSAGE,
   validateDocumentForm,
   type DocumentFormErrors,
   type DocumentFormValues,
@@ -47,6 +49,8 @@ export function DocumentForm({ firstFieldRef, onClose }: DocumentFormProps) {
   const fieldRefs = useRef<Partial<Record<FieldName, HTMLElement>>>({});
   const pendingErrorFocusRef = useRef<FieldName | null>(null);
   const successButtonRef = useRef<HTMLButtonElement>(null);
+  const noteError = errors.note ??
+    (values.note.length > NOTE_MAX_LENGTH ? NOTE_TOO_LONG_MESSAGE : undefined);
 
   useEffect(() => {
     const fieldName = pendingErrorFocusRef.current;
@@ -245,7 +249,9 @@ export function DocumentForm({ firstFieldRef, onClose }: DocumentFormProps) {
             Notatka{' '}
             {values.documentType === 'other' && <span aria-hidden="true">*</span>}
           </label>
-          <span className="character-count" id="note-count">{values.note.length}/200</span>
+          <span className="character-count" id="note-count">
+            {values.note.length}/{NOTE_MAX_LENGTH}
+          </span>
         </div>
         <textarea
           id="note"
@@ -254,12 +260,17 @@ export function DocumentForm({ firstFieldRef, onClose }: DocumentFormProps) {
           ref={(element) => { fieldRefs.current.note = element ?? undefined; }}
           value={values.note}
           onChange={handleTextChange}
-          aria-invalid={Boolean(errors.note)}
-          aria-describedby={errors.note ? 'note-count note-error' : 'note-count'}
+          aria-invalid={Boolean(noteError)}
+          aria-describedby={noteError ? 'note-count note-error' : 'note-count'}
           required={values.documentType === 'other'}
           disabled={isSubmitting}
+          autoComplete="off"
         />
-        {errors.note && <p className="field-error" id="note-error">{errors.note}</p>}
+        {noteError && (
+          <p className="field-error" id="note-error" role="status">
+            {noteError}
+          </p>
+        )}
       </div>
 
       {backendError && (

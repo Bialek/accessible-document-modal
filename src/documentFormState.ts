@@ -11,6 +11,8 @@ export interface DocumentFormValues {
 export type DocumentFormErrors = Partial<Record<keyof DocumentFormValues, string>>;
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const NOTE_MAX_LENGTH = 200;
+export const NOTE_TOO_LONG_MESSAGE = `Notatka może mieć maksymalnie ${NOTE_MAX_LENGTH} znaków.`;
 
 export const initialDocumentFormValues: DocumentFormValues = {
   documentType: 'id',
@@ -39,8 +41,8 @@ export function validateDocumentForm(values: DocumentFormValues): DocumentFormEr
 
   if (values.documentType === 'other' && !values.note.trim()) {
     errors.note = 'Notatka jest wymagana dla typu Other.';
-  } else if (values.note.length > 200) {
-    errors.note = 'Notatka może mieć maksymalnie 200 znaków.';
+  } else if (values.note.length > NOTE_MAX_LENGTH) {
+    errors.note = NOTE_TOO_LONG_MESSAGE;
   }
 
   return errors;

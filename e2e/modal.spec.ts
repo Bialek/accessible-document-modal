@@ -28,3 +28,23 @@ test('native modal contains keyboard focus and restores it after Escape', async 
   await expect(dialog).toBeHidden();
   await expect(opener).toBeFocused();
 });
+
+test('validation reveals Other note and focuses the first invalid field', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Dodaj dokument' }).click();
+
+  const documentType = page.getByRole('combobox', { name: 'Typ dokumentu' });
+  const documentNumber = page.getByRole('textbox', { name: /Numer dokumentu/ });
+  const note = page.getByRole('textbox', { name: /Notatka/ });
+
+  await documentType.selectOption('other');
+  await expect(note).toHaveAttribute('required', '');
+
+  await page.getByRole('button', { name: 'Wyślij dokument' }).click();
+  await expect(documentNumber).toBeFocused();
+  await expect(page.getByText('Notatka jest wymagana dla typu Other.')).toBeVisible();
+
+  await note.fill('a'.repeat(201));
+  await expect(note).toHaveAttribute('aria-invalid', 'true');
+  await expect(page.getByText('Notatka może mieć maksymalnie 200 znaków.')).toBeVisible();
+});
